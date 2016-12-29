@@ -20,16 +20,20 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'miamoresdb');
+/* get enviromnent vars*/
+$url = parse_url(getenv('DATABASE_URL') ? getenv('DATABASE_URL') : getenv('CLEARDB_DATABASE_URL'));
+
+/** The name of the database for WordPress */
+define('DB_NAME', trim($url['path'], '/'));
 
 /** MySQL database username */
-define('DB_USER', 'root');
+define('DB_USER', $url['user']);
 
 /** MySQL database password */
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', $url['pass']);
 
 /** MySQL hostname */
-define('DB_HOST', '127.0.0.1');
+define('DB_HOST', $url['host']);
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
@@ -46,14 +50,16 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'z6Wd<i{-02i1g_mX-D+kslou,(1)C3;G</P-k(uOk8iw]Vt#9}Ic%>UdYI4*gzXX');
-define('SECURE_AUTH_KEY',  '9Uop+)?f_+U0=xA*9G~Te>{N-^?AGeK?UG1]x9.)GPMk2Mi.t/_1@3%DZg6sE8=@');
-define('LOGGED_IN_KEY',    '+2>}Wj]o^qf>iuJ(uFvqPcfVxiI1TA6Y[R&yo_>BR)=f$ruB;meV<~{EAEBD:&TI');
-define('NONCE_KEY',        '~elT:cEza~ 1QDvSBrF6.fasZ!Yf;l!EiMjNl9+Y1i&/;&c0]N(-SwGGOgzPU+bo');
-define('AUTH_SALT',        'eL@qR@Y `K>}B:{yS7pTtYrZ$(1? gfY};=)$ck=Q[wRXLnn6VCJQ{R?/1n[^>p[');
-define('SECURE_AUTH_SALT', ')98,++D`S#^@hIonxxzV-4?7:s(K+CO^D?zw>3Rjred+]@k%<:L>0z`9hHpyxo]-');
-define('LOGGED_IN_SALT',   'QeZIW5~?.iswY!HV95p*,Uyp*FGfI=Fc_R-c2uAK3ErK.?vs.!_<]jsyv|%DQ&h4');
-define('NONCE_SALT',       'V!8sy?kK,9kXR$5_J}7lEFc0**eL?KWo6;!n>Hsb(f8{E]Q6z]s%(|*<WtyohuV&');
+
+
+define('AUTH_KEY',         getenv('AUTH_KEY'));
+define('SECURE_AUTH_KEY',  getenv('SECURE_AUTH_KEY'));
+define('LOGGED_IN_KEY',    getenv('LOGGED_IN_KEY'));
+define('NONCE_KEY',        getenv('NONCE_KEY'));
+define('AUTH_SALT',        getenv('AUTH_SALT'));
+define('SECURE_AUTH_SALT', getenv('SECURE_AUTH_SALT'));
+define('LOGGED_IN_SALT',   getenv('LOGGED_IN_SALT'));
+define('NONCE_SALT',       getenv('NONCE_SALT'));
 
 /**#@-*/
 
